@@ -1,8 +1,3 @@
 # Gallery
 
-Simple Gallery System
-
-
-Currently working to deploy this on website
-
-live:
+Simple Gallery System with Database
