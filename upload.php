@@ -63,6 +63,8 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload your photo</title>
 
+    <link rel="shortcut icon" href="img/Logo.svg" type="image/x-icon">
+    
     <!--Font Awesome-->
     <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="fontawesome/css/brands.min.css" rel="stylesheet">
