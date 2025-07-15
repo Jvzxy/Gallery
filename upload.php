@@ -7,7 +7,7 @@ $limitReached = false;
 $countResult = mysqli_query($con, "SELECT COUNT(*) as total FROM images");
 $countRow = mysqli_fetch_assoc($countResult);
 
-if ($countRow['total'] >= 5) {
+if ($countRow['total'] >= 50) {
     $limitReached = true;
 }
 
@@ -128,7 +128,7 @@ if (isset($_POST['submit'])) {
         <script>
             Swal.fire({
                 title: 'Upload Limit Reached',
-                text: 'You can only upload up to 5 photos.',
+                text: 'Community can only upload up to 50 photos.',
                 icon: 'warning',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#a31621',
