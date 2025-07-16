@@ -31,12 +31,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 85vh;
+    height: 550px;
 }
 
 .container h2 {
     color: var(--text-color-1);
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
 }
 
 .drop-area {
@@ -45,15 +45,15 @@ body {
     justify-content: center;
     border: 2px dashed var(--text-color-1);
     border-radius: 10px;
-    padding: 0;
     text-align: center;
     cursor: pointer;
-    max-width: 100%;
-    width: 500px;
+    width: 100%;
+    max-width: 400px;
     height: 300px;
-    margin: 0 auto;
+    padding: 1rem;
+    margin: auto;
     box-sizing: border-box;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     position: relative;
     overflow: hidden;
 }
@@ -78,11 +78,8 @@ body {
 }
 
 #instructions {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 100%;
+    line-height: 1.5rem;
 }
 
 
@@ -95,6 +92,7 @@ body {
     display: inline-block;
     margin-top: 0.6rem;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .button-1:hover {
@@ -111,28 +109,34 @@ body {
     font-size: 1rem;
 }
 
-.fa-solid.fa-plus {
-    font-weight: bold;
-}
-
 .button-2 {
     color: var(--primary-color);
     background: var(--text-color-1);
     border-radius: 0.6rem;
-    padding: 0.7rem 1rem;
+    padding: 0.6rem 1rem;
     transition: 0.3s ease-in-out;
     display: inline-block;
     margin-top: 0.6rem;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .button-2:hover {
     background-color: var(--text-color-1);
     border-radius: 0.6rem;
     color: var(--primary-color);
-    padding: 0.7rem 1rem;
+    padding: 0.6rem 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 1rem;
+}
+
 
 .custom-swal-title {
     color: #a31621 !important;
@@ -144,4 +148,56 @@ body {
     color: #a31621 !important;
     font-family: 'Open Sans', sans-serif !important;
     font-size: 16px !important;
+}
+
+@media screen and (max-width: 768px) {
+
+    .container h2 {
+        font-size: large;
+    }
+
+    .drop-area {
+        padding: 1.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    #instructions {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn button {
+        width: 100%;
+        font-size: 0.95rem; 
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+
+    .container h2 {
+        font-size: large;
+    }
+
+    .drop-area {
+        padding: 1.2rem 1rem;
+        font-size: 0.7rem;
+    }
+
+    #instructions {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        gap: 0.6rem;
+    }
+
+    .btn button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
 }
