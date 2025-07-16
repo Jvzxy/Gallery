@@ -42,10 +42,10 @@ body {
 
 .gallery-header a:hover {
     background-color: var(--text-color-1);
+    background: var(--primary-color);
     border-radius: 0.6rem;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
     padding: 0.5rem 1rem;
+    color: var(--text-color-1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
