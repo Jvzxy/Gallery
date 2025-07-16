@@ -61,10 +61,11 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Upload your photo</title>
 
     <link rel="shortcut icon" href="img/Logo.svg" type="image/x-icon">
-    
+
     <!--Font Awesome-->
     <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="fontawesome/css/brands.min.css" rel="stylesheet">
@@ -98,10 +99,13 @@ if (isset($_POST['submit'])) {
 
             <input type="file" id="photo" name="photo" accept="image/*" required>
 
-            <button class="button-1" type="submit" name="submit"><i class="fa-solid fa-plus"></i> Upload Photo</button>
+            <div class="btn">
+                <button class="button-1" type="submit" name="submit"><i class="fa-solid fa-plus"></i> Upload Photo</button>
+                <button class="button-2" type="button" onclick="window.location='index.php'">View Gallery</button>
+            </div>
         </form>
 
-        <button class="button-2" type="button" onclick="window.location='gallery.php'">View Gallery</button>
+
     </div>
 
     <script src="Js/upload.js"></script>
@@ -146,7 +150,7 @@ if (isset($_POST['submit'])) {
                     document.querySelector('.swal2-html-container').style.fontSize = '16px';
                 }
             }).then(() => {
-                window.location.href = 'gallery.php';
+                window.location.href = 'index.php';
             });
         </script>
     <?php endif; ?>
