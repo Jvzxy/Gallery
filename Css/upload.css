@@ -59,10 +59,10 @@ form>* {
     width: 100%;
     max-width: 400px;
     height: 300px;
-    padding: 1rem;
+    padding: 1.5rem;
     margin: auto;
     box-sizing: border-box;
-    font-size: 0.9rem;
+    font-size: 1rem;
     position: relative;
     overflow: hidden;
 }
@@ -152,11 +152,8 @@ form>* {
 }
 
 .btn button {
-    flex: 1 1 48%;
     min-width: 140px;
-    max-width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
 }
 
 
@@ -196,7 +193,6 @@ form>* {
 
     .btn button {
         width: 100%;
-        font-size: 0.95rem;
         max-width: 100%;
     }
 
@@ -210,7 +206,7 @@ form>* {
 
     .drop-area {
         padding: 1.2rem 1rem;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 
     #instructions {
@@ -223,6 +219,6 @@ form>* {
 
     .btn button {
         font-size: 0.9rem;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1rem;
     }
 }
