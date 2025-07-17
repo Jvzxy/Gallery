@@ -38,12 +38,12 @@ if(isset($_POST['submit'])) {
         <a href="upload.php">Upload Your Photo</a>
     </div>
 
-    <div class="gallery-container">
-
-        <div id="gallery">
-            <?php 
+    <div class="wrapper">
+        <div class="gallery-container">
+            <div id="gallery">
+                <?php
                 $result = mysqli_query($con, "SELECT * FROM images ORDER BY id DESC");
-                while($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     $filepath = 'img/' . $row['file'];
                     if (file_exists($filepath) && !empty($row['file'])) {
                         echo '<div class="gallery-item">';
@@ -51,7 +51,8 @@ if(isset($_POST['submit'])) {
                         echo '</div>';
                     }
                 }
-            ?>
+                ?>
+            </div>
         </div>
     </div>
 
