@@ -1,4 +1,5 @@
 <?php
+
 include('dbconnection.php');
 
 $limitReached = false;
@@ -34,24 +35,53 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
-    $ext = pathinfo($file_name, PATHINFO_EXTENSION);
-    $new_filename = uniqid('img_', true) . '.' . $ext;
-    $folder = 'img/' . $new_filename;
 
-    $uploadSuccess = false;
+    $params = array(
+        'media' => new CurlFile($tempname),
+        'models' => 'nudity-2.1,weapon,alcohol,recreational_drug,medical,offensive-2.0,text-content,face-attributes,gore-2.0,qr-content,tobacco,violence,self-harm',
+        'api_user' => '1844495589',
+        'api_secret' => '5U8PCnJUR5PezjJyY2J8udHDkTvDBceb',
+    );
 
+    $ch = curl_init('https://api.sightengine.com/1.0/check.json');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    $response = curl_exec($ch);
+    curl_close($ch);
 
-    if (move_uploaded_file($tempname, $folder)) {
-        $stmt = $con->prepare("INSERT INTO images (file) VALUES (?)");
-        $stmt->bind_param("s", $new_filename);
-        $stmt->execute();
+    $output = json_decode($response, true);
 
+    if (!isset($output['status']) || $output['status'] !== 'success') {
+        echo "<script>alert('Sightengine error: " . htmlspecialchars($output['error']['message'] ?? 'Unknown error') . "');</script>";
+        exit;
+    }
 
-        $uploadSuccess = true;
+    $is_bad_content = (
+        ($output['nudity']['sexual_activity'] ?? 0) > 0.6 ||
+        ($output['gore']['prob'] ?? 0) > 0.6 ||
+        ($output['weapon']['prob'] ?? 0) > 0.6 ||
+        ($output['violence']['prob'] ?? 0) > 0.6
+    );
+
+    if ($is_bad_content) {
+        $rejectedDueToContent = true;
     } else {
-        echo "<script>alert('Failed to move uploaded image.');</script>";
+        $ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        $new_filename = uniqid('img_', true) . '.' . $ext;
+        $folder = 'img/' . $new_filename;
+
+        if (move_uploaded_file($tempname, $folder)) {
+            $stmt = $con->prepare("INSERT INTO images (file) VALUES (?)");
+            $stmt->bind_param("s", $new_filename);
+            $stmt->execute();
+            $uploadSuccess = true;
+        } else {
+            echo "<script>alert('Failed to move uploaded image.');</script>";
+        }
     }
 }
+
 
 ?>
 
@@ -64,7 +94,7 @@ if (isset($_POST['submit'])) {
 
     <title>Upload your photo</title>
 
-    <link rel="shortcut icon" href="img/Logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="Logo.svg" type="image/x-icon">
 
     <!--Font Awesome-->
     <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet">
@@ -152,6 +182,35 @@ if (isset($_POST['submit'])) {
             }).then(() => {
                 window.location.href = 'index.php';
             });
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($rejectedDueToContent) && $rejectedDueToContent): ?>
+        <script>
+            window.onload = function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Rejected',
+                    text: 'Image contains inappropriate content and cannot be uploaded.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#a31621',
+                    customClass: {
+                        title: 'custom-limit-title',
+                        htmlContainer: 'custom-limit-text'
+                    },
+                    didOpen: () => {
+                        document.querySelector('.swal2-title').style.color = '#a31621';
+                        document.querySelector('.swal2-title').style.fontFamily = 'Poppins, sans-serif';
+                        document.querySelector('.swal2-title').style.fontSize = '24px';
+
+                        document.querySelector('.swal2-html-container').style.color = '#a31621';
+                        document.querySelector('.swal2-html-container').style.fontFamily = 'Open Sans, sans-serif';
+                        document.querySelector('.swal2-html-container').style.fontSize = '16px';
+                    }
+                }).then(() => {
+                    window.location.href = 'upload.php';
+                });
+            };
         </script>
     <?php endif; ?>
 
